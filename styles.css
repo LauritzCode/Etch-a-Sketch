@@ -50,7 +50,7 @@ body {
 }
 
 .grid {
-    border: 1px solid black;
+    
 }
 
 
@@ -80,7 +80,7 @@ body {
     transform: scale(1.05);
 }
 
-.mode:focus {
+.mode:active {
     background-color: var(--primary-dark);
     color: var(--white);
 }

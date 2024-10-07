@@ -1,11 +1,12 @@
 const container = document.querySelector(".draw-container");
-const colorMode = document.querySelector(".color-mode-btn");
-const eraseMode = document.querySelector(".erase-btn");
+const colorMode = document.querySelector("#color-mode-btn");
+const eraserMode = document.querySelector("#erase-btn");
 const clearBtn = document.querySelector("#clear-btn");
 const sizeValue = document.querySelector(".size-value");
 const sizeSlider = document.querySelector("#sizeSlider");
 const colorPicker = document.querySelector(".color-picker");
 let isPainting = false;
+let currentMode = "color";
 
 const createGrid = () => {
     const containerSize = 500;
@@ -20,14 +21,17 @@ const createGrid = () => {
       divs.style.width = `${divSize}px`;
       container.appendChild(divs);
   
-      // Attach the event listeners to each individual div
       divs.addEventListener("mousedown", () => {
         isPainting = true;
       });
   
       divs.addEventListener("mousemove", () => {
         if (isPainting) {
-          divs.style.background = `${colorPicker.value}`;
+          if (currentMode === "color") {
+            divs.style.background = `${colorPicker.value}`;
+          } else if (currentMode === "erase"){
+            divs.style.background = "white";
+          }
         }
       });
     }
@@ -59,6 +63,24 @@ allDivs.forEach((div) => {
 }
 
 clearBtn.addEventListener("click", clearAll);
+
+
+eraserMode.addEventListener("click", () => {
+  currentMode = "erase";
+  eraserMode.style.background = "var(--primary-dark)";
+  eraserMode.style.color = "var(--primary-light)";
+  colorMode.style.background = "var(--primary-light)";
+  colorMode.style.color = "var(--primary-dark)";
+});
+
+colorMode.addEventListener("click", () => {
+  currentMode = "color";
+  colorMode.style.background = "var(--primary-dark)";
+  colorMode.style.color = "var(--primary-light)";
+  eraserMode.style.background = "var(--primary-light)";
+  eraserMode.style.color = "var(--primary-dark)";
+});
+
 
 
 window.onload = createGrid;
